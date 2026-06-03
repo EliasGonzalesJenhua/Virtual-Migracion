@@ -1,0 +1,1 @@
+/* Dashboard logic lives in main.js so every static page can share one loader. */

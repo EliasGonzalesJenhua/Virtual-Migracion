@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 720" role="img" aria-labelledby="title desc">
+  <title id="title">Migración de entornos virtuales</title>
+  <desc id="desc">Visualización de clusters, datos y nodos GPU conectados durante una migración.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#08111f"/>
+      <stop offset="0.55" stop-color="#0d1b33"/>
+      <stop offset="1" stop-color="#07121f"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#00d2ff"/>
+      <stop offset="1" stop-color="#7dd3fc"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="900" height="720" fill="url(#bg)"/>
+  <path d="M68 118h210M132 210h190M620 120h170M590 592h226M82 600h244" stroke="#1e3a5f" stroke-width="2"/>
+  <g fill="none" stroke="#00d2ff" stroke-width="3" opacity=".82">
+    <path d="M208 360 C310 210 532 210 650 360"/>
+    <path d="M208 360 C322 510 532 510 650 360"/>
+    <path d="M260 360h338"/>
+  </g>
+  <g filter="url(#glow)">
+    <circle cx="208" cy="360" r="62" fill="#0d6efd" opacity=".8"/>
+    <circle cx="650" cy="360" r="62" fill="#00d2ff" opacity=".78"/>
+    <circle cx="430" cy="250" r="38" fill="#22c55e" opacity=".74"/>
+    <circle cx="430" cy="470" r="38" fill="#facc15" opacity=".74"/>
+  </g>
+  <g font-family="Inter, Arial" font-size="22" font-weight="700" fill="#e2e8f0">
+    <text x="154" y="367">Legacy</text>
+    <text x="610" y="367">Target</text>
+    <text x="397" y="257">GPU</text>
+    <text x="394" y="477">Data</text>
+  </g>
+  <g fill="#101a2e" stroke="#28456d" stroke-width="2">
+    <rect x="96" y="84" width="180" height="82" rx="8"/>
+    <rect x="624" y="82" width="180" height="82" rx="8"/>
+    <rect x="100" y="548" width="220" height="84" rx="8"/>
+    <rect x="580" y="548" width="230" height="84" rx="8"/>
+  </g>
+  <g font-family="Inter, Arial" font-size="18" fill="#cbd5e1">
+    <text x="124" y="132">Cluster heredado</text>
+    <text x="650" y="130">Cluster HA</text>
+    <text x="124" y="598">Red plana</text>
+    <text x="610" y="598">Microsegmentación</text>
+  </g>
+  <g stroke="url(#cyan)" stroke-width="4" stroke-linecap="round">
+    <path d="M358 360h144"/>
+    <path d="M488 342l28 18-28 18"/>
+  </g>
+</svg>
