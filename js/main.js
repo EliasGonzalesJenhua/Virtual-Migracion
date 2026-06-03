@@ -1950,14 +1950,11 @@ function initLoginGate() {
   }
 
   document.body.insertAdjacentHTML("afterbegin", `
-    <section class="login-gate is-loading" aria-label="Inicio de sesión">
+    <section class="login-gate is-ready" aria-label="Inicio de sesión">
       <div class="login-loader-page" data-login-loader>
-        <div class="login-clock-panel">
-          <div class="login-clock-wrapper">
-            <main class="login-clock-main" aria-label="Reloj digital"></main>
-          </div>
-          <p>Acceso protegido · VM Migration</p>
-        </div>
+        <video class="access-loader-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+          <source src="${pathTo("miles-morales-purple-neon-spiderman-moewalls-com.mp4")}" type="video/mp4">
+        </video>
         <div class="loader" aria-label="Cargando">
           <div class="glitch" data-glitch="Cargando...">Cargando...</div>
         </div>
@@ -1965,6 +1962,12 @@ function initLoginGate() {
       <div class="login-window">
         <div class="login-window-bar" aria-hidden="true">
           <span></span><span></span><span></span>
+        </div>
+        <div class="login-clock-panel">
+          <div class="login-clock-wrapper">
+            <main class="login-clock-main" aria-label="Reloj digital"></main>
+          </div>
+          <p>Acceso protegido · VM Migration</p>
         </div>
         <form class="login-form-panel" data-login-form>
           <span class="login-kicker">Bienvenido</span>
@@ -1989,11 +1992,7 @@ function initLoginGate() {
 
   initLoginClock(document.querySelector(".login-clock-main"));
   const gate = document.querySelector(".login-gate");
-  setTimeout(() => {
-    gate?.classList.remove("is-loading");
-    gate?.classList.add("is-ready");
-    document.querySelector("[data-login-form] input")?.focus();
-  }, 2600);
+  document.querySelector("[data-login-form] input")?.focus();
 
   const form = document.querySelector("[data-login-form]");
   const error = document.querySelector("[data-login-error]");
@@ -2004,13 +2003,19 @@ function initLoginGate() {
     const password = String(data.get("password") || "");
 
     if (username === "elias123" && password === "elias") {
-      sessionStorage.setItem(loginStorageKey, "ok");
-      document.documentElement.classList.remove("auth-lock");
-      document.querySelector(".login-gate")?.classList.add("is-closing");
+      error.textContent = "";
+      form.querySelector("button")?.setAttribute("disabled", "true");
+      gate?.classList.remove("is-ready");
+      gate?.classList.add("is-access-loading");
       setTimeout(() => {
-        document.querySelector(".login-gate")?.remove();
-        window.AOS?.refresh();
-      }, 360);
+        sessionStorage.setItem(loginStorageKey, "ok");
+        document.documentElement.classList.remove("auth-lock");
+        gate?.classList.add("is-closing");
+        setTimeout(() => {
+          gate?.remove();
+          window.AOS?.refresh();
+        }, 360);
+      }, 30000);
       return;
     }
 
