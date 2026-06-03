@@ -73,7 +73,8 @@ html.auth-lock #site-footer {
   padding: clamp(1.25rem, 3vw, 3rem);
   color: #e2e8f0;
   background:
-    radial-gradient(circle at 48% 86%, rgba(37, 99, 235, 0.18), transparent 26rem),
+    radial-gradient(ellipse at 38% 72%, rgba(37, 99, 235, 0.28), transparent 32rem),
+    radial-gradient(ellipse at 38% 60%, rgba(59, 130, 246, 0.12), transparent 25rem),
     linear-gradient(180deg, #141111, #060404 76%);
   perspective: 45rem;
   transform-style: preserve-3d;
@@ -85,10 +86,10 @@ html.auth-lock #site-footer {
 
 .login-window {
   position: relative;
-  width: min(1100px, 100%);
+  width: min(1320px, 100%);
   min-height: auto;
   display: grid;
-  grid-template-columns: minmax(0, 798px) 255px;
+  grid-template-columns: minmax(0, 1fr) 255px;
   align-items: center;
   justify-self: center;
   gap: clamp(1.2rem, 4vw, 3rem);
@@ -131,14 +132,12 @@ html.auth-lock #site-footer {
   z-index: 1;
   display: grid;
   align-content: center;
-  width: min(798px, 100%);
-  min-height: 405px;
+  width: min(920px, 100%);
+  min-height: 520px;
   overflow: visible;
   justify-self: center;
-  padding: 2.25rem;
-  background:
-    radial-gradient(ellipse at 50% 78%, rgba(37, 99, 235, 0.34), transparent 22rem),
-    radial-gradient(ellipse at 50% 62%, rgba(37, 99, 235, 0.12), transparent 18rem);
+  padding: 0;
+  background: transparent;
   border: 0;
   box-shadow: none;
 }
@@ -146,13 +145,14 @@ html.auth-lock #site-footer {
 .login-clock-panel::after {
   position: absolute;
   left: 50%;
-  bottom: 4%;
-  width: min(760px, 72vw);
-  height: 34%;
+  bottom: 7%;
+  width: min(860px, 78vw);
+  height: 38%;
   content: "";
-  background: radial-gradient(ellipse, rgba(59, 130, 246, 0.38), transparent 70%);
-  filter: blur(28px);
+  background: radial-gradient(ellipse, rgba(59, 130, 246, 0.34), transparent 72%);
+  filter: blur(34px);
   transform: translateX(-50%);
+  pointer-events: none;
 }
 
 .login-clock-panel p {
@@ -297,8 +297,8 @@ html.auth-lock #site-footer {
 .login-clock-wrapper {
   position: relative;
   z-index: 2;
-  width: min(610px, 100%);
-  height: 180px;
+  width: min(840px, 100%);
+  height: 260px;
   display: grid;
   place-items: center;
   margin: 0 auto;
@@ -334,7 +334,7 @@ html.auth-lock #site-footer {
 
 .login-clock-main .digit {
   position: relative;
-  height: clamp(5.2rem, 8.6vw, 7.2rem);
+  height: clamp(7.2rem, 10vw, 10.4rem);
   aspect-ratio: 1 / 2;
   margin: 0;
   filter: drop-shadow(0 0 4px currentColor) drop-shadow(0 0 10px currentColor);
@@ -429,8 +429,8 @@ html.auth-lock #site-footer {
 }
 
 .login-clock-main .colon span {
-  width: clamp(1.4rem, 3vw, 2.6rem);
-  height: clamp(5.6rem, 12vw, 10rem);
+  width: clamp(1.8rem, 3.4vw, 3.2rem);
+  height: clamp(7.2rem, 10vw, 10.4rem);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -440,7 +440,7 @@ html.auth-lock #site-footer {
 
 .login-clock-main .colon span::before,
 .login-clock-main .colon span::after {
-  width: clamp(0.72rem, 1.8vw, 1.28rem);
+  width: clamp(0.95rem, 1.6vw, 1.45rem);
   aspect-ratio: 1;
   content: "";
   background-color: white;
@@ -5956,16 +5956,16 @@ body.no-scroll-driven .advances-scroll-story .ring {
 
   .login-clock-panel {
     width: 100%;
-    min-height: 260px;
-    padding: 1.4rem;
+    min-height: 320px;
+    padding: 0;
     opacity: 1;
   }
 
   .login-clock-wrapper {
     width: 100%;
     margin-left: 0;
-    height: 135px;
-    scale: 0.82;
+    height: 190px;
+    scale: 0.74;
   }
 
   .login-clock-panel p {
