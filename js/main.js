@@ -663,20 +663,6 @@ function renderDashboardOpenButton() {
     </article>`;
 }
 
-function renderStarfall() {
-  const stars = Array.from({ length: 40 }, (_, index) => {
-    const x = (index * 37) % 101;
-    const drift = 14 + ((index * 11) % 28);
-    const delay = (index * 0.23).toFixed(2);
-    const duration = (3.4 + ((index * 7) % 18) / 10).toFixed(2);
-    const size = 4 + (index % 4);
-    return `<span class="falling-star" style="--x:${x}vw; --drift:${drift}vw; --delay:${delay}s; --duration:${duration}s; --size:${size}px;"></span>`;
-  }).join("");
-  return `<div class="starfall" aria-hidden="true">
-    ${stars}
-  </div>`;
-}
-
 function renderTeam() {
   const members = [
     {
@@ -784,7 +770,6 @@ function renderQuestionsSection() {
     </article>`).join("");
   return `
     <section id="preguntas" class="section-band page-anchor final-questions">
-      ${renderStarfall()}
       <div class="container">
         <section class="questions-panel" data-aos="fade-up">
           <div class="eyebrow mb-3">Cierre del PDF</div>
@@ -994,7 +979,6 @@ function renderOnePageSections() {
     .filter(([, , , key]) => key !== "home" && key !== "questions" && key !== "risks" && key !== "mitigation" && key !== "critical" && key !== "segregation" && key !== "conclusions")
     .map(([sectionId, , , key]) => key === "tools" ? renderOperationOneScrollCarouselSection() : `
       <section id="${sectionId}" class="section-band page-anchor ${key === "operations" ? "operations-showcase" : key === "current" ? "current-showcase" : key === "inventory" ? "inventory-showcase" : key === "dependencies" ? "dependency-collage-showcase" : key === "intro" ? "intro-showcase" : key === "migration" ? "migration-showcase" : key === "types" ? "types-showcase" : key === "phases" ? "phases-showcase" : key === "tools" ? "tools-showcase" : key === "proposed" ? "operation-three-section" : key === "advances" ? "advances-story-section" : ""}">
-          ${renderStarfall()}
           ${key === "operations" ? `
             <video class="operations-bg-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
               <source src="${pathTo("images/arquitectura-migracion-ia.mp4")}" type="video/mp4">
@@ -1019,7 +1003,6 @@ function renderOperationOneScrollCarouselSection() {
   ];
   return `
     <section id="herramientas" class="risk-scroll-showcase page-anchor" data-risk-carousel>
-      ${renderStarfall()}
       <div id="riesgos" class="risk-carousel-anchor risk-anchor-risks page-anchor" aria-hidden="true"></div>
       <div id="mitigacion" class="risk-carousel-anchor risk-anchor-mitigation page-anchor" aria-hidden="true"></div>
       <div class="container risk-sticky-wrap">
@@ -1402,7 +1385,6 @@ function renderCaseShowcase(sourceBody) {
 
   return `
     <section id="contexto" class="case-showcase section-band page-anchor">
-      ${renderStarfall()}
       <div class="container">
         <div class="case-showcase-grid">
           <div class="case-copy">
@@ -1427,7 +1409,6 @@ function renderPage() {
   document.getElementById("app").innerHTML = `
     <main class="page-shell">
       <section id="${key === "home" ? "inicio" : ""}" class="${key === "home" ? "hero page-anchor" : key === "operations" ? "section-band operations-showcase" : key === "current" ? "section-band current-showcase" : key === "inventory" ? "section-band inventory-showcase" : ["dependencies", "critical"].includes(key) ? "section-band dependency-collage-showcase" : key === "migration" ? "section-band migration-showcase" : key === "types" ? "section-band types-showcase" : key === "phases" ? "section-band phases-showcase" : key === "tools" ? "section-band tools-showcase" : key === "proposed" ? "section-band operation-three-section" : key === "advances" ? "section-band advances-story-section" : "section-band"}">
-        ${renderStarfall()}
         ${key === "home" ? `
           <video class="hero-bg-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
             <source src="${pathTo("PRINCIPAL.mp4")}" type="video/mp4">
