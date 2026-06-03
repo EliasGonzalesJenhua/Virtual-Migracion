@@ -1963,6 +1963,9 @@ function initLoginGate() {
         </div>
       </div>
       <div class="login-window">
+        <button class="login-music-toggle" type="button" data-login-music-toggle aria-label="Reproducir musica" aria-pressed="false">
+          <i class="fa-solid fa-volume-xmark" aria-hidden="true"></i>
+        </button>
         <div class="login-window-bar" aria-hidden="true">
           <span></span><span></span><span></span>
         </div>
@@ -2000,14 +2003,36 @@ function initLoginGate() {
   const form = document.querySelector("[data-login-form]");
   const error = document.querySelector("[data-login-error]");
   const loginMusic = document.querySelector("[data-login-music]");
+  const musicToggle = document.querySelector("[data-login-music-toggle]");
+  const updateMusicToggle = () => {
+    if (!musicToggle || !loginMusic) return;
+    const isPlaying = !loginMusic.paused;
+    musicToggle.setAttribute("aria-label", isPlaying ? "Pausar musica" : "Reproducir musica");
+    musicToggle.setAttribute("aria-pressed", String(isPlaying));
+    musicToggle.innerHTML = `<i class="fa-solid ${isPlaying ? "fa-volume-high" : "fa-volume-xmark"}" aria-hidden="true"></i>`;
+  };
   const playLoginMusic = () => {
     if (!loginMusic || !loginMusic.paused) return;
     loginMusic.volume = 0.55;
-    loginMusic.play().catch(() => {});
+    loginMusic.play().then(updateMusicToggle).catch(updateMusicToggle);
   };
 
   gate?.addEventListener("pointerdown", playLoginMusic, { once: true });
   gate?.addEventListener("keydown", playLoginMusic, { once: true });
+  loginMusic?.addEventListener("play", updateMusicToggle);
+  loginMusic?.addEventListener("pause", updateMusicToggle);
+  musicToggle?.addEventListener("pointerdown", (event) => event.stopPropagation());
+  musicToggle?.addEventListener("keydown", (event) => event.stopPropagation());
+  musicToggle?.addEventListener("click", (event) => {
+    event.stopPropagation();
+    if (!loginMusic) return;
+    if (loginMusic.paused) {
+      playLoginMusic();
+      return;
+    }
+    loginMusic.pause();
+    updateMusicToggle();
+  });
 
   form?.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -2030,7 +2055,7 @@ function initLoginGate() {
           gate?.remove();
           window.AOS?.refresh();
         }, 360);
-      }, 30000);
+      }, 60000);
       return;
     }
 
