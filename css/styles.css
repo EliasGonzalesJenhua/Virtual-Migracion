@@ -69,7 +69,7 @@ html.auth-lock #site-footer {
   inset: 0;
   z-index: 9999;
   display: grid;
-  place-items: center;
+  align-items: center;
   padding: clamp(1rem, 3vw, 2rem);
   color: #e2e8f0;
   background:
@@ -85,27 +85,24 @@ html.auth-lock #site-footer {
 }
 
 .login-window {
-  width: min(1120px, 100%);
-  min-height: min(680px, calc(100vh - 2rem));
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - clamp(1rem, 3vw, 2rem) * 2);
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(340px, 0.75fr);
-  overflow: hidden;
-  background:
-    linear-gradient(145deg, rgba(15, 23, 42, 0.92), rgba(2, 6, 13, 0.92)),
-    rgba(2, 6, 13, 0.9);
-  border: 1px solid rgba(125, 211, 252, 0.2);
-  border-radius: 28px;
-  box-shadow: 0 38px 140px rgba(0, 0, 0, 0.72);
-  backdrop-filter: blur(18px);
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 420px);
+  align-items: center;
+  gap: clamp(1rem, 4vw, 4rem);
+  overflow: visible;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  backdrop-filter: none;
   animation: loginWindowEnter 0.72s ease both;
 }
 
 .login-window-bar {
-  position: absolute;
-  z-index: 2;
-  display: flex;
-  gap: 0.5rem;
-  padding: 1.1rem 1.25rem;
+  display: none;
 }
 
 .login-window-bar span {
@@ -130,10 +127,12 @@ html.auth-lock #site-footer {
 }
 
 .login-clock-panel {
-  position: relative;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
   display: grid;
   align-content: center;
-  min-height: 100%;
+  min-height: 100vh;
   overflow: hidden;
   padding: clamp(1.5rem, 4vw, 4rem);
   background:
@@ -145,7 +144,7 @@ html.auth-lock #site-footer {
   position: absolute;
   left: 50%;
   bottom: -10%;
-  width: 72%;
+  width: min(980px, 86vw);
   height: 35%;
   content: "";
   background: radial-gradient(ellipse, rgba(59, 130, 246, 0.42), transparent 70%);
@@ -157,7 +156,7 @@ html.auth-lock #site-footer {
   position: relative;
   z-index: 1;
   max-width: 520px;
-  margin: 2rem auto 0;
+  margin: 2rem 0 0 13vw;
   color: #bfdbfe;
   font-size: 0.95rem;
   font-weight: 800;
@@ -167,6 +166,8 @@ html.auth-lock #site-footer {
 }
 
 .login-form-panel {
+  position: relative;
+  z-index: 2;
   display: grid;
   align-content: center;
   gap: 1rem;
@@ -174,7 +175,10 @@ html.auth-lock #site-footer {
   background:
     linear-gradient(180deg, rgba(15, 23, 42, 0.78), rgba(2, 6, 13, 0.92)),
     rgba(2, 6, 13, 0.9);
-  border-left: 1px solid rgba(125, 211, 252, 0.14);
+  border: 1px solid rgba(125, 211, 252, 0.18);
+  border-radius: 26px;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.52);
+  backdrop-filter: blur(18px);
 }
 
 .login-kicker {
@@ -257,10 +261,11 @@ html.auth-lock #site-footer {
 .login-clock-wrapper {
   position: relative;
   z-index: 1;
-  width: 100%;
+  width: min(820px, 68vw);
   height: 240px;
   display: grid;
   place-items: center;
+  margin-left: 6vw;
   animation: loginCameraRotate 40s ease-in-out infinite;
   transform-style: preserve-3d;
 }
@@ -5903,7 +5908,7 @@ body.no-scroll-driven .advances-scroll-story .ring {
 @media (max-width: 991px) {
   .login-gate {
     overflow-y: auto;
-    align-items: start;
+    align-items: center;
   }
 
   .login-window {
@@ -5912,12 +5917,26 @@ body.no-scroll-driven .advances-scroll-story .ring {
   }
 
   .login-clock-panel {
-    min-height: 340px;
+    min-height: 100vh;
+    opacity: 0.52;
+  }
+
+  .login-clock-wrapper {
+    width: 100%;
+    margin-left: 0;
+    scale: 0.82;
+  }
+
+  .login-clock-panel p {
+    margin-left: 0;
+    text-align: center;
   }
 
   .login-form-panel {
     border-left: 0;
-    border-top: 1px solid rgba(125, 211, 252, 0.14);
+    border: 1px solid rgba(125, 211, 252, 0.18);
+    justify-self: center;
+    width: min(100%, 420px);
   }
 
   .navbar {
