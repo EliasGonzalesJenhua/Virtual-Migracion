@@ -981,6 +981,7 @@ function renderOnePageSections() {
       <section id="${sectionId}" class="section-band page-anchor ${key === "operations" ? "operations-showcase" : key === "current" ? "current-showcase" : key === "inventory" ? "inventory-showcase" : key === "dependencies" ? "dependency-collage-showcase" : key === "intro" ? "intro-showcase" : key === "migration" ? "migration-showcase" : key === "types" ? "types-showcase" : key === "phases" ? "phases-showcase" : key === "tools" ? "tools-showcase" : key === "proposed" ? "operation-three-section" : key === "advances" ? "advances-story-section" : ""}">
           ${key === "operations" ? `
             <video class="operations-bg-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+              <source src="${pathTo("OPERACION DE CASO.mp4")}" type="video/mp4">
               <source src="${pathTo("images/arquitectura-migracion-ia.mp4")}" type="video/mp4">
             </video>` : key === "migration" ? `
             <video class="migration-bg-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
@@ -1392,7 +1393,7 @@ function renderCaseShowcase(sourceBody) {
           </div>
           <div class="case-video-card" data-aos="fade-left">
             <video autoplay muted loop controls preload="metadata" playsinline>
-              <source src="${pathTo("images/arquitectura-migracion-ia.mp4")}" type="video/mp4">
+              <source src="${pathTo("Arquitectura de migracion virtual e IA.mp4")}" type="video/mp4">
               Tu navegador no soporta video HTML5.
             </video>
           </div>
@@ -1414,6 +1415,7 @@ function renderPage() {
             <source src="${pathTo("PRINCIPAL.mp4")}" type="video/mp4">
           </video>` : key === "operations" ? `
           <video class="operations-bg-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+            <source src="${pathTo("OPERACION DE CASO.mp4")}" type="video/mp4">
             <source src="${pathTo("images/arquitectura-migracion-ia.mp4")}" type="video/mp4">
           </video>` : key === "migration" ? `
           <video class="migration-bg-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
@@ -1951,6 +1953,7 @@ function initLoginGate() {
 
   document.body.insertAdjacentHTML("afterbegin", `
     <section class="login-gate is-ready" aria-label="Inicio de sesión">
+      <audio data-login-music src="${pathTo("temamusical.mp3")}" loop preload="auto"></audio>
       <div class="login-loader-page" data-login-loader>
         <video class="access-loader-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
           <source src="${pathTo("miles-morales-purple-neon-spiderman-moewalls-com.mp4")}" type="video/mp4">
@@ -1996,8 +1999,19 @@ function initLoginGate() {
 
   const form = document.querySelector("[data-login-form]");
   const error = document.querySelector("[data-login-error]");
+  const loginMusic = document.querySelector("[data-login-music]");
+  const playLoginMusic = () => {
+    if (!loginMusic || !loginMusic.paused) return;
+    loginMusic.volume = 0.55;
+    loginMusic.play().catch(() => {});
+  };
+
+  gate?.addEventListener("pointerdown", playLoginMusic, { once: true });
+  gate?.addEventListener("keydown", playLoginMusic, { once: true });
+
   form?.addEventListener("submit", (event) => {
     event.preventDefault();
+    playLoginMusic();
     const data = new FormData(form);
     const username = String(data.get("username") || "").trim();
     const password = String(data.get("password") || "");
@@ -2012,6 +2026,7 @@ function initLoginGate() {
         document.documentElement.classList.remove("auth-lock");
         gate?.classList.add("is-closing");
         setTimeout(() => {
+          loginMusic?.pause();
           gate?.remove();
           window.AOS?.refresh();
         }, 360);
