@@ -1950,16 +1950,21 @@ function initLoginGate() {
   }
 
   document.body.insertAdjacentHTML("afterbegin", `
-    <section class="login-gate" aria-label="Inicio de sesión">
-      <div class="login-window">
-        <div class="login-window-bar" aria-hidden="true">
-          <span></span><span></span><span></span>
-        </div>
+    <section class="login-gate is-loading" aria-label="Inicio de sesión">
+      <div class="login-loader-page" data-login-loader>
         <div class="login-clock-panel">
           <div class="login-clock-wrapper">
             <main class="login-clock-main" aria-label="Reloj digital"></main>
           </div>
           <p>Acceso protegido · VM Migration</p>
+        </div>
+        <div class="loader" aria-label="Cargando">
+          <div class="glitch" data-glitch="Cargando...">Cargando...</div>
+        </div>
+      </div>
+      <div class="login-window">
+        <div class="login-window-bar" aria-hidden="true">
+          <span></span><span></span><span></span>
         </div>
         <form class="login-form-panel" data-login-form>
           <span class="login-kicker">Bienvenido</span>
@@ -1983,6 +1988,12 @@ function initLoginGate() {
     </section>`);
 
   initLoginClock(document.querySelector(".login-clock-main"));
+  const gate = document.querySelector(".login-gate");
+  setTimeout(() => {
+    gate?.classList.remove("is-loading");
+    gate?.classList.add("is-ready");
+    document.querySelector("[data-login-form] input")?.focus();
+  }, 2600);
 
   const form = document.querySelector("[data-login-form]");
   const error = document.querySelector("[data-login-error]");

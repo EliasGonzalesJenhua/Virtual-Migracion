@@ -84,22 +84,51 @@ html.auth-lock #site-footer {
   animation: loginExit 0.36s ease forwards;
 }
 
+.login-loader-page {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 1.4rem;
+  padding: clamp(1.25rem, 4vw, 4rem);
+  transition: opacity 0.55s ease, visibility 0.55s ease, transform 0.55s ease;
+}
+
+.login-gate.is-ready .login-loader-page {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(1.04);
+}
+
 .login-window {
   position: relative;
+  z-index: 2;
   width: min(1320px, 100%);
   min-height: auto;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 255px;
+  grid-template-columns: 1fr;
   align-items: center;
+  justify-items: end;
   justify-self: center;
-  gap: clamp(1.2rem, 4vw, 3rem);
   overflow: visible;
   background: transparent;
   border: 0;
   border-radius: 0;
   box-shadow: none;
   backdrop-filter: none;
-  animation: loginWindowEnter 0.72s ease both;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(36px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.login-gate.is-ready .login-window {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
 }
 
 .login-window-bar {
@@ -169,6 +198,48 @@ html.auth-lock #site-footer {
   text-shadow: 0 0 12px rgba(59, 130, 246, 0.65);
 }
 
+.loader {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+}
+
+.glitch {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  font-size: clamp(1.1rem, 2vw, 1.65rem);
+  font-weight: 900;
+  letter-spacing: 5px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  animation: shift 1s ease-in-out infinite alternate;
+  text-shadow: 0 0 18px rgba(255, 255, 255, 0.18);
+}
+
+.glitch::before,
+.glitch::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  content: attr(data-glitch);
+  opacity: 0.8;
+}
+
+.glitch::before {
+  z-index: -1;
+  color: #ff8b00;
+  animation: glitch 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+}
+
+.glitch::after {
+  z-index: -2;
+  color: #57e500;
+  animation: glitch 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
+}
+
 .login-form-panel {
   position: relative;
   z-index: 2;
@@ -181,9 +252,9 @@ html.auth-lock #site-footer {
   isolation: isolate;
   overflow: hidden;
   background:
-    linear-gradient(180deg, rgba(20, 15, 15, 0.94), rgba(7, 5, 5, 0.96)),
+    linear-gradient(155deg, rgba(35, 32, 32, 0.86), rgba(8, 6, 6, 0.98) 44%, rgba(3, 8, 10, 0.98)),
     rgba(10, 8, 8, 0.96);
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(230, 235, 242, 0.34);
   border-radius: 22px;
   box-shadow:
     0 30px 90px rgba(0, 0, 0, 0.58),
@@ -200,17 +271,29 @@ html.auth-lock #site-footer {
   pointer-events: none;
 }
 
+.login-form-panel .login-kicker::before,
+.login-form-panel .login-kicker::after {
+  display: none;
+}
+
 .login-form-panel::before {
   z-index: 0;
-  padding: 1px;
+  padding: 2px;
   background:
     conic-gradient(from var(--login-border-angle, 0deg),
-      transparent 0deg,
-      rgba(34, 211, 238, 0.95) 38deg,
-      rgba(255, 255, 255, 0.95) 72deg,
-      rgba(148, 163, 184, 0.5) 118deg,
-      transparent 160deg,
-      transparent 360deg);
+      rgba(255, 255, 255, 0.12) 0deg,
+      rgba(34, 211, 238, 0.98) 32deg,
+      rgba(255, 255, 255, 0.98) 58deg,
+      rgba(148, 163, 184, 0.72) 92deg,
+      transparent 132deg,
+      transparent 210deg,
+      rgba(226, 232, 240, 0.45) 250deg,
+      rgba(34, 211, 238, 0.85) 292deg,
+      rgba(255, 255, 255, 0.12) 360deg);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
   mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
@@ -221,8 +304,8 @@ html.auth-lock #site-footer {
 .login-form-panel::after {
   z-index: 0;
   background:
-    linear-gradient(115deg, transparent 0 28%, rgba(255, 255, 255, 0.08) 42%, transparent 56%),
-    radial-gradient(circle at 50% 100%, rgba(34, 211, 238, 0.16), transparent 42%);
+    linear-gradient(112deg, transparent 0 24%, rgba(255, 255, 255, 0.12) 40%, rgba(34, 211, 238, 0.1) 46%, transparent 60%),
+    radial-gradient(circle at 50% 100%, rgba(34, 211, 238, 0.22), transparent 42%);
   translate: -70% 0;
   animation: loginPanelShine 5.6s ease-in-out infinite;
 }
@@ -236,8 +319,12 @@ html.auth-lock #site-footer {
   width: 100%;
   padding: 0.7rem 0.9rem;
   color: transparent;
-  background: linear-gradient(180deg, #ffffff 0%, #d1d5db 38%, #7c8796 52%, #f8fafc 72%, #aeb7c4 100%);
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.12), transparent 32%, rgba(255, 255, 255, 0.22), transparent 68%),
+    linear-gradient(180deg, #ffffff 0%, #f6f7f9 24%, #8d96a4 46%, #ffffff 64%, #b8c0cc 100%);
   background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   border: 1px solid rgba(255, 255, 255, 0.9);
   border-left-color: rgba(0, 210, 255, 0.95);
   border-radius: 999px;
@@ -251,7 +338,8 @@ html.auth-lock #site-footer {
   text-transform: none;
   text-shadow:
     0 1px 0 rgba(255, 255, 255, 0.26),
-    0 8px 20px rgba(0, 0, 0, 0.55);
+    0 8px 20px rgba(0, 0, 0, 0.55),
+    0 0 18px rgba(255, 255, 255, 0.1);
 }
 
 .login-kicker::first-letter {
@@ -261,8 +349,12 @@ html.auth-lock #site-footer {
 .login-form-panel h1 {
   margin: 1.35rem 0 1rem;
   color: transparent;
-  background: linear-gradient(180deg, #ffffff 0%, #e5e7eb 28%, #818c9b 54%, #f8fafc 78%, #a7b0bd 100%);
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.18), transparent 34%, rgba(255, 255, 255, 0.25), transparent 72%),
+    linear-gradient(180deg, #ffffff 0%, #f9fafb 18%, #a0a8b5 46%, #ffffff 68%, #8f99a8 100%);
   background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-family: Outfit, Inter, sans-serif;
   font-size: 1.55rem;
   font-weight: 900;
@@ -277,8 +369,11 @@ html.auth-lock #site-footer {
   display: grid;
   gap: 0.4rem;
   color: transparent;
-  background: linear-gradient(180deg, #ffffff 0%, #d8dee7 45%, #8c96a5 100%);
+  background:
+    linear-gradient(180deg, #ffffff 0%, #e7ebf0 36%, #909aa8 100%);
   background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-size: 0.8rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -321,8 +416,10 @@ html.auth-lock #site-footer {
 
 .login-remember span {
   color: transparent;
-  background: linear-gradient(180deg, #ffffff, #9ca3af);
+  background: linear-gradient(180deg, #ffffff, #d1d5db 45%, #8b95a3);
   background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .login-error {
@@ -3084,6 +3181,66 @@ footer {
     translate: 70% 0;
     opacity: 0;
   }
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-3px, 3px);
+  }
+  40% {
+    transform: translate(-3px, -3px);
+  }
+  60% {
+    transform: translate(3px, 3px);
+  }
+  80% {
+    transform: translate(3px, -3px);
+  }
+  to {
+    transform: translate(0);
+  }
+}
+
+@keyframes shift {
+  0%,
+  40%,
+  44%,
+  58%,
+  61%,
+  65%,
+  69%,
+  73%,
+  100% {
+    transform: skewX(0deg);
+  }
+  41% {
+    transform: skewX(10deg);
+  }
+  42% {
+    transform: skewX(-10deg);
+  }
+  59% {
+    transform: skewX(40deg) skewY(10deg);
+  }
+  60% {
+    transform: skewX(-40deg) skewY(-10deg);
+  }
+  63% {
+    transform: skewX(10deg) skewY(-5deg);
+  }
+  70% {
+    transform: skewX(-50deg) skewY(-20deg);
+  }
+  71% {
+    transform: skewX(10deg) skewY(-10deg);
+  }
+}
+
+.login-form-panel {
+  background-position: 0 0;
 }
 
 @keyframes corePulse {
