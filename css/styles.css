@@ -133,26 +133,25 @@ html.auth-lock #site-footer {
   align-content: center;
   width: min(798px, 100%);
   min-height: 405px;
-  overflow: hidden;
+  overflow: visible;
   justify-self: center;
   padding: 2.25rem;
   background:
-    radial-gradient(ellipse at 50% 92%, rgba(37, 99, 235, 0.48), transparent 19rem),
-    radial-gradient(ellipse at 50% 74%, rgba(37, 99, 235, 0.22), transparent 17rem),
-    linear-gradient(180deg, #1b1b1b 0%, #090909 74%, #040507 100%);
-  border: 1px solid rgba(255, 255, 255, 0.025);
-  box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.35);
+    radial-gradient(ellipse at 50% 78%, rgba(37, 99, 235, 0.34), transparent 22rem),
+    radial-gradient(ellipse at 50% 62%, rgba(37, 99, 235, 0.12), transparent 18rem);
+  border: 0;
+  box-shadow: none;
 }
 
 .login-clock-panel::after {
   position: absolute;
   left: 50%;
-  bottom: -14%;
-  width: min(980px, 86vw);
-  height: 42%;
+  bottom: 4%;
+  width: min(760px, 72vw);
+  height: 34%;
   content: "";
-  background: radial-gradient(ellipse, rgba(59, 130, 246, 0.42), transparent 70%);
-  filter: blur(24px);
+  background: radial-gradient(ellipse, rgba(59, 130, 246, 0.38), transparent 70%);
+  filter: blur(28px);
   transform: translateX(-50%);
 }
 
@@ -160,13 +159,14 @@ html.auth-lock #site-footer {
   position: relative;
   z-index: 3;
   max-width: 520px;
-  margin: 1.05rem auto 0;
+  margin: 0.55rem auto 0;
   color: #bfdbfe;
-  font-size: 0.9rem;
+  font-size: 0.86rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-align: center;
   text-transform: uppercase;
+  text-shadow: 0 0 12px rgba(59, 130, 246, 0.65);
 }
 
 .login-form-panel {
@@ -298,7 +298,7 @@ html.auth-lock #site-footer {
   position: relative;
   z-index: 2;
   width: min(610px, 100%);
-  height: 165px;
+  height: 180px;
   display: grid;
   place-items: center;
   margin: 0 auto;
