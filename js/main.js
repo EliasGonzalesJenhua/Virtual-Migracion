@@ -1,5 +1,11 @@
 const isNested = location.pathname.replaceAll("\\", "/").includes("/pages/");
 const root = isNested ? "../" : "";
+const loginStorageKey = "vm-migration-auth";
+const isAuthenticated = sessionStorage.getItem(loginStorageKey) === "ok";
+
+if (!isAuthenticated) {
+  document.documentElement.classList.add("auth-lock");
+}
 
 const pages = [
   ["inicio", "Inicio", "Planificación de Migración de Entornos Virtuales", "home"],
@@ -1840,6 +1846,166 @@ function initTeamCards() {
   });
 }
 
+function initLoginClock(clockRoot) {
+  if (!clockRoot) return;
+  const bars = [
+    ["end", "top"],
+    ["side", "top", "left"],
+    ["side", "top", "right"],
+    ["middle"],
+    ["side", "bottom", "left"],
+    ["side", "bottom", "right"],
+    ["end", "bottom"]
+  ];
+
+  const addDigits = (number) => {
+    const initGroup = (value, padding = 2) => {
+      const group = document.createElement("div");
+      group.classList.add("group");
+      const digits = [...`${value}`.padStart(padding, "0")].map((digit) => {
+        const figure = document.createElement("figure");
+        figure.classList.add("digit");
+        figure.setAttribute("data-digit", digit);
+        bars.forEach((classes) => {
+          const span = document.createElement("span");
+          span.classList.add(...classes);
+          figure.append(span);
+        });
+        return figure;
+      });
+
+      group.append(...digits);
+
+      return {
+        element: group,
+        set number(value) {
+          [...`${value}`.padStart(padding, "0").slice(-padding)].forEach((digit, index) => {
+            digits[index].setAttribute("data-digit", digit);
+          });
+        }
+      };
+    };
+
+    const digitsWrap = document.createElement("div");
+    digitsWrap.classList.add("digits");
+    const group = initGroup(number);
+    const groupShadow1 = initGroup(number);
+    const groupShadow2 = initGroup(number);
+    groupShadow1.element.classList.add("shadow", "shadow1");
+    groupShadow2.element.classList.add("shadow", "shadow2");
+    digitsWrap.append(group.element, groupShadow1.element, groupShadow2.element);
+    clockRoot.append(digitsWrap);
+
+    return {
+      set number(value) {
+        group.number = value;
+        groupShadow1.number = value;
+        groupShadow2.number = value;
+      }
+    };
+  };
+
+  const addColon = () => {
+    const colonGroup = document.createElement("div");
+    colonGroup.classList.add("colon-group");
+    ["", "shadow shadow1", "shadow shadow2"].forEach((className) => {
+      const colon = document.createElement("figure");
+      colon.className = `colon ${className}`.trim();
+      colon.append(document.createElement("span"));
+      colonGroup.append(colon);
+    });
+    clockRoot.append(colonGroup);
+  };
+
+  let now = new Date();
+  let hours = now.getHours();
+  let minutes = now.getMinutes();
+  let seconds = now.getSeconds();
+  const numberHour = addDigits(hours);
+  addColon();
+  const numberMinute = addDigits(minutes);
+  addColon();
+  const numberSecond = addDigits(seconds);
+
+  const update = () => {
+    now = new Date();
+    const newSeconds = now.getSeconds();
+    if (seconds !== newSeconds) {
+      hours = now.getHours();
+      minutes = now.getMinutes();
+      seconds = newSeconds;
+      numberHour.number = hours;
+      numberMinute.number = minutes;
+      numberSecond.number = seconds;
+    }
+    requestAnimationFrame(update);
+  };
+  update();
+}
+
+function initLoginGate() {
+  if (sessionStorage.getItem(loginStorageKey) === "ok") return;
+  if (/^(?:(?!chrome|android)[\s\S])*(?:safari|iPad|iPhone|iPod)/i.test(navigator.userAgent)) {
+    document.body.classList.add("safari");
+  }
+
+  document.body.insertAdjacentHTML("afterbegin", `
+    <section class="login-gate" aria-label="Inicio de sesión">
+      <div class="login-window">
+        <div class="login-window-bar" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="login-clock-panel">
+          <div class="login-clock-wrapper">
+            <main class="login-clock-main" aria-label="Reloj digital"></main>
+          </div>
+          <p>Acceso protegido · VM Migration</p>
+        </div>
+        <form class="login-form-panel" data-login-form>
+          <span class="login-kicker">Bienvenido</span>
+          <h1>Iniciar sesión</h1>
+          <label>
+            <span>ID de usuario</span>
+            <input type="text" name="username" autocomplete="username" placeholder="elias123" required>
+          </label>
+          <label>
+            <span>Contraseña</span>
+            <input type="password" name="password" autocomplete="current-password" placeholder="Contraseña" required>
+          </label>
+          <p class="login-error" data-login-error role="alert" aria-live="polite"></p>
+          <button type="submit">Entrar al proyecto</button>
+        </form>
+      </div>
+    </section>`);
+
+  initLoginClock(document.querySelector(".login-clock-main"));
+
+  const form = document.querySelector("[data-login-form]");
+  const error = document.querySelector("[data-login-error]");
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const username = String(data.get("username") || "").trim();
+    const password = String(data.get("password") || "");
+
+    if (username === "elias123" && password === "elias") {
+      sessionStorage.setItem(loginStorageKey, "ok");
+      document.documentElement.classList.remove("auth-lock");
+      document.querySelector(".login-gate")?.classList.add("is-closing");
+      setTimeout(() => {
+        document.querySelector(".login-gate")?.remove();
+        window.AOS?.refresh();
+      }, 360);
+      return;
+    }
+
+    error.textContent = "ID o contraseña incorrectos.";
+    form.classList.remove("shake");
+    void form.offsetWidth;
+    form.classList.add("shake");
+  });
+}
+
 renderNav();
 renderPage();
 renderFooter();
@@ -1854,3 +2020,4 @@ initCharts();
   initDashboardParticles();
   initDashboardTabs();
   initTeamCards();
+  initLoginGate();
