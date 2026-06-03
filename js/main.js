@@ -1972,6 +1972,10 @@ function initLoginGate() {
             <span>Contraseña</span>
             <input type="password" name="password" autocomplete="current-password" placeholder="Contraseña" required>
           </label>
+          <label class="login-remember">
+            <input type="checkbox" name="remember">
+            <span>Recordar</span>
+          </label>
           <p class="login-error" data-login-error role="alert" aria-live="polite"></p>
           <button type="submit">Entrar al proyecto</button>
         </form>
