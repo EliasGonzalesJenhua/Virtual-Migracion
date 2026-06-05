@@ -7397,3 +7397,303 @@ body.no-scroll-driven .advances-scroll-story .ring {
     font-size: 1.35rem;
   }
 }
+
+@media (max-width: 768px) {
+  .login-loader-page {
+    min-height: 100dvh;
+    padding: 1rem;
+  }
+
+  .access-loader-video {
+    object-position: center;
+  }
+
+  .loader {
+    width: min(82vw, 22rem);
+    padding: 0.85rem 1rem;
+  }
+
+  .glitch {
+    font-size: clamp(1rem, 6vw, 1.35rem);
+    letter-spacing: 0.28rem;
+    text-align: center;
+  }
+
+  .migration-showcase,
+  .types-showcase,
+  .tools-showcase,
+  .advances-story-section {
+    min-height: auto !important;
+    padding: 4.75rem 0 2.5rem !important;
+    overflow: hidden;
+  }
+
+  .migration-layout,
+  .types-layout {
+    display: grid;
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem;
+    min-height: auto !important;
+    align-items: start;
+  }
+
+  .migration-copy,
+  .migration-case {
+    grid-column: auto;
+    justify-items: start;
+    width: 100%;
+    margin: 0;
+    text-align: left;
+  }
+
+  .migration-title,
+  .types-header h1,
+  .tools-header h1,
+  .phases-header h1,
+  .advances-story-header h1 {
+    width: 100% !important;
+    aspect-ratio: auto !important;
+    max-width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  .migration-title {
+    font-size: clamp(2.35rem, 13vw, 3.8rem) !important;
+    line-height: 0.95 !important;
+    text-align: left;
+  }
+
+  .migration-subtitle,
+  .migration-copy section,
+  .migration-copy p,
+  .migration-case p,
+  .types-header p,
+  .types-copy p,
+  .tools-header p {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-right: 0;
+    margin-left: 0;
+    font-size: clamp(0.95rem, 4.5vw, 1.05rem);
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+  }
+
+  .migration-copy h2,
+  .migration-case h2,
+  .types-copy h2 {
+    font-size: clamp(1.55rem, 8vw, 2.25rem);
+    line-height: 1.05;
+    overflow-wrap: anywhere;
+  }
+
+  .types-pill {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .types-header {
+    text-align: left;
+  }
+
+  .types-header h1,
+  .tools-header h1,
+  .phases-header h1 {
+    font-size: clamp(2.5rem, 13vw, 4rem) !important;
+    line-height: 0.98 !important;
+    text-align: left;
+  }
+
+  .types-copy {
+    gap: 1rem;
+  }
+
+  .types-image-frame {
+    width: 100% !important;
+    min-height: 0 !important;
+    aspect-ratio: 4 / 3;
+    border-radius: 18px;
+    justify-self: stretch;
+  }
+
+  .types-image-frame img {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .tools-card-stage {
+    display: grid !important;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    perspective: none;
+  }
+
+  .tool-tilt-card {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    aspect-ratio: auto !important;
+    display: grid;
+    overflow: hidden;
+    background: rgba(8, 13, 20, 0.9);
+    border: 1px solid rgba(100, 255, 241, 0.24);
+    border-radius: 18px;
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.35);
+    perspective: none;
+    transform: none !important;
+    transform-style: flat;
+  }
+
+  .tool-card-shadow,
+  .tool-card-cutout,
+  .tool-tilt-card::before,
+  .tool-tilt-card::after {
+    display: none !important;
+  }
+
+  .tool-card-image,
+  .tool-card-background,
+  .tool-card-content {
+    position: relative !important;
+    inset: auto !important;
+    transform: none !important;
+  }
+
+  .tool-card-image {
+    min-height: 13rem;
+  }
+
+  .tool-card-image img {
+    height: 13rem;
+    object-fit: cover;
+  }
+
+  .tool-card-content {
+    padding: 1rem !important;
+    background: rgba(8, 13, 20, 0.96) !important;
+  }
+
+  .tool-card-content h2 {
+    font-size: clamp(1.35rem, 7vw, 1.8rem);
+    overflow-wrap: anywhere;
+  }
+
+  .tool-card-content p {
+    font-size: 0.98rem;
+    line-height: 1.45;
+  }
+
+  .advances-scroll-story {
+    min-height: auto !important;
+  }
+
+  .advances-story-header,
+  .advances-story-main {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .advances-story-header {
+    min-height: auto !important;
+    display: grid;
+    gap: 1rem;
+    padding: 0 !important;
+    align-content: start;
+  }
+
+  .advances-story-header img {
+    position: relative !important;
+    inset: auto !important;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+    max-width: 100%;
+    aspect-ratio: 4 / 3;
+    opacity: 0.9;
+    translate: 0 0 !important;
+    clip-path: none !important;
+    border-radius: 18px;
+    object-fit: cover;
+  }
+
+  .advances-story-header h1 {
+    font-size: clamp(2.35rem, 12vw, 3.6rem) !important;
+    line-height: 0.98 !important;
+  }
+
+  .advances-story-header p {
+    max-width: 100%;
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  .advances-story-item,
+  .advances-story-item:first-child,
+  .advances-story-item:nth-of-type(even) {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem;
+    min-height: auto !important;
+    margin-top: 1.25rem !important;
+    padding: 0 !important;
+  }
+
+  .advances-story-item img,
+  .advances-story-item:nth-of-type(even) img {
+    position: relative !important;
+    top: auto !important;
+    grid-column: 1 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    scale: 1 !important;
+    translate: 0 0 !important;
+    clip-path: none !important;
+    border-radius: 18px 18px 0 0;
+    object-fit: cover;
+    animation: none !important;
+  }
+
+  .advances-story-item p,
+  .advances-story-item:nth-of-type(even) p {
+    position: relative !important;
+    top: auto !important;
+    grid-column: 1 !important;
+    margin: 0 !important;
+    padding: 1rem;
+    border-radius: 0 0 18px 18px;
+    font-size: 0.98rem;
+    line-height: 1.45;
+    animation: none !important;
+    translate: 0 0 !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .migration-showcase,
+  .types-showcase,
+  .tools-showcase,
+  .advances-story-section {
+    padding-top: 4.25rem !important;
+  }
+
+  .migration-title,
+  .types-header h1,
+  .tools-header h1,
+  .phases-header h1,
+  .advances-story-header h1 {
+    font-size: clamp(2.05rem, 12vw, 3.1rem) !important;
+  }
+
+  .tool-card-image,
+  .tool-card-image img {
+    min-height: 11rem;
+    height: 11rem;
+  }
+}
