@@ -991,7 +991,7 @@ function renderOnePageSections() {
       <section id="${sectionId}" class="section-band page-anchor ${key === "operations" ? "operations-showcase" : key === "current" ? "current-showcase" : key === "inventory" ? "inventory-showcase" : key === "dependencies" ? "dependency-collage-showcase" : key === "intro" ? "intro-showcase" : key === "migration" ? "migration-showcase" : key === "types" ? "types-showcase" : key === "phases" ? "phases-showcase" : key === "tools" ? "tools-showcase" : key === "proposed" ? "operation-three-section" : key === "advances" ? "advances-story-section" : ""}">
           ${key === "operations" ? `
             <video class="operations-bg-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
-              <source src="${pathTo("OPERACION DE CASO.mp4")}" type="video/mp4">
+              <source src="${pathTo("operacion-de-caso-web.mp4")}" type="video/mp4">
               <source src="${pathTo("images/arquitectura-migracion-ia.mp4")}" type="video/mp4">
             </video>` : key === "migration" ? `
             <video class="migration-bg-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
@@ -1425,7 +1425,7 @@ function renderPage() {
             <source src="${pathTo("PRINCIPAL.mp4")}" type="video/mp4">
           </video>` : key === "operations" ? `
           <video class="operations-bg-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
-            <source src="${pathTo("OPERACION DE CASO.mp4")}" type="video/mp4">
+            <source src="${pathTo("operacion-de-caso-web.mp4")}" type="video/mp4">
             <source src="${pathTo("images/arquitectura-migracion-ia.mp4")}" type="video/mp4">
           </video>` : key === "migration" ? `
           <video class="migration-bg-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
