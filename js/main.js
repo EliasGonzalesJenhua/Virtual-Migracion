@@ -338,6 +338,16 @@ function renderNav() {
         </div>
       </div>
     </nav>`;
+
+  const navCollapse = document.getElementById("mainNav");
+  const navLinks = navCollapse?.querySelectorAll("a[href]");
+  navLinks?.forEach(link => {
+    link.addEventListener("click", () => {
+      if (!window.bootstrap) return;
+      const collapse = bootstrap.Collapse.getOrCreateInstance(navCollapse);
+      if (collapse && navCollapse.classList.contains("show")) collapse.hide();
+    });
+  });
 }
 
 function renderSidebar() {
